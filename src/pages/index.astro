@@ -1,17 +1,19 @@
 ---
-
+import "../styles/global.css";
+const name = "Gabby";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>{name} | Graphic Designer & Creative Technologist</title>
+    </head>
+
+    <body>
+        <main>
+            <h1>Hello, I'm {name} and I'm building this website myself.</h1>
+            <p>Graphic designer. Creative technologist. AI tinkerer.</p>
+        </main>
+    </body>
 </html>
