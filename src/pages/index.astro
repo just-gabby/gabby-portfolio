@@ -1,19 +1,18 @@
 ---
 import "../styles/global.css";
+import Layout from "../layouts/layout.astro";
 const name = "Gabby";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <title>{name} | Graphic Designer & Creative Technologist</title>
-    </head>
+<Layout
+    title="Gabby | Graphic Designer & Creative Technologist"
+    description="Portfolio of Gabriele Naseviciute, graphic designer and creative technologist."
+>
+    <main>
+        <h1>Hello, I'm Gabby.</h1>
 
-    <body>
-        <main>
-            <h1>Hello, I'm {name} and I'm building this website myself.</h1>
-            <p>Graphic designer. Creative technologist. AI tinkerer.</p>
-        </main>
-    </body>
-</html>
+        <p>
+            Graphic designer, creative technologist and AI tinkerer.
+        </p>
+    </main>
+</Layout>
