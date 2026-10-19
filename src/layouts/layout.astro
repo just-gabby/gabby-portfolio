@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import "../styles/global.css";
 import Header from "../components/header.astro";
 
@@ -17,7 +18,9 @@ const {
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Font cssVariable="--font-newsreader" />
+        <Font cssVariable="--font-inter" />
 
         <title>{title}</title>
 
