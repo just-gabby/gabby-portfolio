@@ -1,18 +1,29 @@
 ---
-import "../styles/global.css";
 import Layout from "../layouts/layout.astro";
-const name = "Gabby";
+
+const base = import.meta.env.BASE_URL;
 ---
 
-<Layout
-    title="Gabby | Graphic Designer & Creative Technologist"
-    description="Portfolio of Gabriele Naseviciute, graphic designer and creative technologist."
->
-    <main>
-        <h1>Hello, I'm Gabby.</h1>
+<Layout>
+    <section class="hero">
+        <p class="eyebrow">Senior Graphic Designer · Creative Technologist</p>
 
-        <p>
-             Graphic designer. Creative technologist. AI tinkerer. Coffee enthusiast.
+        <h1>
+            I design things,
+            <br />
+            then I figure out
+            <br />
+            how to make them work.
+        </h1>
+
+        <p class="hero-intro">
+            I'm Gabby, a senior graphic designer exploring the space where
+            design, code and AI meet.
         </p>
-    </main>
+
+        <div class="hero-actions">
+        <a href={`${base}work/`}>View my work</a>
+        <a href={`${base}ai/`}>Explore AI + Code</a>
+        </div>
+    </section>
 </Layout>
