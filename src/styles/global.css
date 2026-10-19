@@ -163,6 +163,42 @@ main {
     gap: var(--space-lg) var(--space-md);
     padding-bottom: var(--space-xl);
 }
+.project-gallery {
+    display: grid;
+    gap: var(--space-md);
+    padding-bottom: var(--space-lg);
+}
+
+.project-gallery figure {
+    margin: 0;
+}
+
+.project-gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.project-gallery figcaption {
+    margin-top: var(--space-xs);
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.project-body {
+    max-width: 700px;
+    padding-bottom: var(--space-lg);
+    font-size: 1.125rem;
+    line-height: 1.6;
+}
+
+.project-back {
+    padding-bottom: var(--space-xl);
+}
+
+.project-back a {
+    font-weight: 600;
+}
 
 @media (max-width: 700px) {
     :root {
