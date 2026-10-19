@@ -1,9 +1,32 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/layout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = (
+    await getCollection(
+        "projects",
+        ({ data }) => !data.draft && data.category === "design",
+    )
+).sort((a, b) => b.data.year - a.data.year);
 ---
 
-<Layout title="Work | Gabby">
-    <main>
-        <h1>Work</h1>
-    </main>
+<Layout
+    title="Work | Gabby"
+    description="Selected graphic design and visual communication work by Gabriele Naseviciute."
+>
+    <section class="page-intro">
+        <p class="eyebrow">Selected work</p>
+
+        <h1>Design, visual communication and digital work.</h1>
+
+        <p>
+            A selection of projects spanning branding, campaigns, digital
+            design, print, web and visual communication.
+        </p>
+    </section>
+    
+        <section class="project-grid" aria-label="Projects">
+        {projects.map((project) => <ProjectCard project={project} />)}
+    </section>
 </Layout>
