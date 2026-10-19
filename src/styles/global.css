@@ -4,6 +4,7 @@
     --text: #171717;
     --muted: #6b6862;
     --accent: #ff5a36;
+    --accent-text: #c2300f;
     --border: #d5d0c7;
 
     --content-width: 1200px;
@@ -36,7 +37,7 @@ a {
 }
 
 a:hover {
-    color: var(--accent);
+    color: var(--accent-text);
 }
 
 .site-header {
@@ -130,11 +131,17 @@ main {
 .hero-actions a:first-child {
     background: var(--text);
     color: var(--background);
+     transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
 }
 
 .hero-actions a:first-child:hover {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--background);
+    transform: translate(-3px, -3px);
+    box-shadow: 3px 3px 0 var(--accent);
 }
 
 .page-intro {
