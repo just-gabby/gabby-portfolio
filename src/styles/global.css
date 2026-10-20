@@ -276,6 +276,11 @@ main {
     padding-left: 1.25rem;
 }
 
+::selection {
+    background: var(--accent);
+    color: var(--text);
+}
+
 @media (max-width: 700px) {
     .about-section {
         grid-template-columns: 1fr;
