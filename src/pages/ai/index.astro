@@ -1,5 +1,14 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/layout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = (
+    await getCollection(
+        "projects",
+        ({ data }) => !data.draft && data.category !== "design",
+    )
+).sort((a, b) => b.data.year - a.data.year);
 ---
 
 <Layout
@@ -16,4 +25,16 @@ import Layout from "../../layouts/layout.astro";
             between technology and creative work.
         </p>
     </section>
+
+    {
+        projects.length > 0 ? (
+            <section class="project-grid" aria-label="Projects">
+                {projects.map((project) => (
+                    <ProjectCard project={project} />
+                ))}
+            </section>
+        ) : (
+            <p class="empty-state">Projects coming soon.</p>
+        )
+    }
 </Layout>

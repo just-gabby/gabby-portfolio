@@ -164,6 +164,12 @@ main {
     padding-bottom: var(--space-xl);
 }
 
+.empty-state {
+    padding-bottom: var(--space-xl);
+    color: var(--muted);
+    font-size: 1.125rem;
+}
+
 .featured {
     padding-top: var(--space-lg);
 }
