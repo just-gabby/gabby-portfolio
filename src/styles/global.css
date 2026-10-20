@@ -281,6 +281,49 @@ main {
     color: var(--text);
 }
 
+.timeline {
+    margin: var(--space-md) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: var(--space-xs) var(--space-sm);
+    padding: var(--space-sm) 0;
+    border-top: 1px solid var(--border);
+}
+
+.timeline-years {
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+}
+
+.about-section-body .timeline-role {
+    margin: 0;
+    font-family: var(--font-newsreader);
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.15;
+}
+
+.about-section-body .timeline-org {
+    margin: 0.25rem 0 var(--space-xs);
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+@media (max-width: 700px) {
+    .timeline-item {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 700px) {
     .about-section {
         grid-template-columns: 1fr;
