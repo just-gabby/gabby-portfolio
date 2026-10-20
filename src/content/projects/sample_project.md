@@ -7,7 +7,7 @@ tags: ["branding", "print"]
 featured: true
 cover: "../../assets/projects/sample-project/cover.jpg"
 coverAlt: "Describe what the image shows here"
-draft: true
+draft: false
 gallery:
   - src: "../../assets/projects/sample-project/cover.jpg"
     alt: "Describe what the image shows here"
