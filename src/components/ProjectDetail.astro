@@ -1,0 +1,47 @@
+---
+import { render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import Layout from "../layouts/layout.astro";
+import { categoryLabels, getSection, getSectionUrl } from "../utils/projects";
+
+interface Props {
+    project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const { title, summary, year, category, gallery } = project.data;
+const { Content } = await render(project);
+const inWork = getSection(project) === "work";
+---
+
+<Layout title={`${title} | Gabby`} description={summary}>
+    <section class="page-intro">
+        <p class="eyebrow">{categoryLabels[category]} · {year}</p>
+        <h1>{title}</h1>
+        <p>{summary}</p>
+    </section>
+
+    {
+        gallery.length > 0 && (
+            <section class="project-gallery" aria-label="Project images">
+                {gallery.map((item) => (
+                    <figure>
+                        <Image src={item.src} alt={item.alt} width={1600} />
+                        {item.caption && <figcaption>{item.caption}</figcaption>}
+                    </figure>
+                ))}
+            </section>
+        )
+    }
+
+    <div class="project-body">
+        <Content />
+    </div>
+
+    <p class="project-back">
+        <a href={getSectionUrl(project)}>
+            {inWork ? "← Back to work" : "← Back to AI + Code"}
+        </a>
+    </p>
+</Layout>
