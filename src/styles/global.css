@@ -232,6 +232,55 @@ main {
 .project-back a {
     font-weight: 600;
 }
+.about-sections {
+    padding-bottom: var(--space-xl);
+}
+
+.about-section {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-sm) var(--space-md);
+    padding: var(--space-lg) 0;
+    border-top: 1px solid var(--border);
+}
+
+.about-section h2 {
+    margin: 0;
+    font-family: var(--font-newsreader);
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 1.1;
+}
+
+.about-section-body {
+    max-width: 650px;
+    font-size: 1.125rem;
+    line-height: 1.6;
+}
+
+.about-section-body h3 {
+    margin: var(--space-md) 0 var(--space-xs);
+    font-size: 1rem;
+}
+
+.about-section-body h3:first-child {
+    margin-top: 0;
+}
+
+.about-section-body p {
+    margin: 0;
+}
+
+.about-list {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+@media (max-width: 700px) {
+    .about-section {
+        grid-template-columns: 1fr;
+    }
+}
 
 @media (max-width: 700px) {
     :root {
