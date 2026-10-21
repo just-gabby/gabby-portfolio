@@ -3,7 +3,7 @@ title: "Sample journal post"
 date: 2026-10-20
 summary: "A placeholder so I can build the Journal. Will replace it with a real post."
 tags: ["learning"]
-draft: false
+draft: true
 ---
 This is the opening paragraph of the sample post, with a
 [link](https://astro.build) in it.
