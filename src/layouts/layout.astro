@@ -36,5 +36,23 @@ const {
         <main id="main" tabindex="-1">
             <slot />
         </main>
+
+        <div class="grid-overlay" aria-hidden="true">
+            <div class="grid-overlay-inner">
+                {Array.from({ length: 12 }, () => <span />)}
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener("keydown", (event) => {
+                if (event.ctrlKey || event.metaKey || event.altKey) return;
+                if (!event.shiftKey || event.key.toLowerCase() !== "g") return;
+
+                const target = event.target as HTMLElement;
+                if (target.matches("input, textarea, select, [contenteditable]")) return;
+
+                document.body.classList.toggle("show-grid");
+            });
+        </script>
     </body>
 </html>

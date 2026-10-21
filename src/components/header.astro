@@ -12,7 +12,7 @@ const links = [
 
 <header class="site-header">
     <nav class="site-nav" aria-label="Main navigation">
-        <a class="site-logo" href={base}>Gabby</a>
+        <a class="site-logo" href={base} aria-label="I am Gabby, home"><span aria-hidden="true">I am&nbsp;</span><span class="logo-name" aria-hidden="true">Gabby</span></a>
 
         <div class="site-nav-links">
             {
@@ -34,3 +34,105 @@ const links = [
         </div>
     </nav>
 </header>
+
+<script>
+    const logo = document.querySelector<HTMLElement>(".site-logo");
+    const nameEl = document.querySelector<HTMLElement>(".logo-name");
+
+    // Edit this list to change the names, or their order.
+    const names = [
+        "Gabriela",
+        "Gabrielle",
+        "Gabe",
+        "Gabo",
+        "Gabs",
+        "Gab Gab",
+        "Gabatron",
+        "Gavin",
+    ];
+    const finalName = "Gabby";
+
+    // Timings in milliseconds.
+    const typeSpeed = 60;
+    const eraseSpeed = 30;
+    const holdTime = 600;
+    const gapTime = 150;
+
+    const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    let alreadyPlayed = false;
+    try {
+        alreadyPlayed = sessionStorage.getItem("logo-played") === "yes";
+    } catch {}
+
+    if (logo && nameEl && !reduceMotion && !alreadyPlayed) {
+        try {
+            sessionStorage.setItem("logo-played", "yes");
+        } catch {}
+        run(logo, nameEl);
+    }
+
+    async function run(logo: HTMLElement, nameEl: HTMLElement) {
+        let current = finalName;
+        let paused = false;
+        let stopped = false;
+
+        const show = (text: string) => {
+            current = text;
+            nameEl.textContent = text;
+        };
+        const wait = (ms: number) =>
+            new Promise((resolve) => setTimeout(resolve, ms));
+        const waitWhilePaused = async () => {
+            while (paused && !stopped) await wait(100);
+        };
+
+        logo.classList.add("is-typing");
+        logo.addEventListener("mouseenter", () => (paused = true));
+        logo.addEventListener("mouseleave", () => (paused = false));
+        logo.addEventListener("focus", () => (paused = true));
+        logo.addEventListener("blur", () => (paused = false));
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") stopped = true;
+        });
+
+        const type = async (text: string) => {
+            for (const letter of text) {
+                if (stopped) return;
+                await waitWhilePaused();
+                show(current + letter);
+                await wait(typeSpeed);
+            }
+        };
+
+        const erase = async () => {
+            while (current.length > 0) {
+                if (stopped) return;
+                await waitWhilePaused();
+                show(current.slice(0, -1));
+                await wait(eraseSpeed);
+            }
+        };
+
+        await wait(600);
+        await erase();
+
+        for (const name of names) {
+            if (stopped) break;
+            await wait(gapTime);
+            await type(name);
+            await wait(holdTime);
+            await erase();
+        }
+
+        if (!stopped) {
+            await wait(gapTime);
+            await type(finalName);
+        }
+
+        show(finalName);
+        logo.classList.remove("is-typing");
+    }
+</script>
