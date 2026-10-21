@@ -517,7 +517,79 @@ main:focus-visible {
         position: static;
     }
 
-    .year-dial {
+        .year-dial {
+        display: none;
+    }
+}
+
+.site-nav-links a[aria-current] {
+    text-decoration: underline;
+    text-decoration-color: var(--text);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+}
+
+.grid-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: none;
+    pointer-events: none;
+}
+
+body.show-grid .grid-overlay {
+    display: block;
+}
+
+.grid-overlay-inner {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-sm);
+    max-width: var(--content-width);
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.grid-overlay-inner span {
+    background: rgb(255 90 54 / 0.12);
+    border-inline: 1px solid rgb(255 90 54 / 0.35);
+}
+
+.site-logo {
+    white-space: nowrap;
+}
+
+.logo-name {
+    display: inline-block;
+    min-width: 9ch;
+}
+
+.site-logo.is-typing .logo-name::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 2px;
+    background: var(--text);
+    vertical-align: -0.12em;
+    animation: caret-blink 1s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 700px) {
+    .grid-overlay-inner {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-xs);
+        padding: 0 1.25rem;
+    }
+
+    .grid-overlay-inner span:nth-child(n + 5) {
         display: none;
     }
 }
@@ -563,7 +635,32 @@ main:focus-visible {
         padding: 5rem 0;
     }
 
-    @media (prefers-reduced-motion: reduce) {
+@media (max-width: 700px) {
+    :root {
+        --text-display: clamp(3rem, 15vw, 5rem);
+    }
+
+    .site-nav {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .site-nav-links {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    main {
+        padding: 0 1.25rem;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 5rem 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
     .hero-actions a:first-child {
         transition: none;
     }
@@ -572,4 +669,4 @@ main:focus-visible {
         transform: none;
     }
 }
-}
+    }
