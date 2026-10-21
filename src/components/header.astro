@@ -1,5 +1,13 @@
 ---
 const base = import.meta.env.BASE_URL;
+const path = Astro.url.pathname;
+
+const links = [
+    { label: "Work", href: `${base}work/` },
+    { label: "AI + Code", href: `${base}ai/` },
+    { label: "Journal", href: `${base}journal/` },
+    { label: "About", href: `${base}about/` },
+];
 ---
 
 <header class="site-header">
@@ -7,10 +15,22 @@ const base = import.meta.env.BASE_URL;
         <a class="site-logo" href={base}>Gabby</a>
 
         <div class="site-nav-links">
-            <a href={`${base}work/`}>Work</a>
-            <a href={`${base}ai/`}>AI + Code</a>
-            <a href={`${base}journal/`}>Journal</a>
-            <a href={`${base}about/`}>About</a>
+            {
+                links.map((link) => {
+                    const current =
+                        path === link.href
+                            ? "page"
+                            : path.startsWith(link.href)
+                              ? "true"
+                              : undefined;
+
+                    return (
+                        <a href={link.href} aria-current={current}>
+                            {link.label}
+                        </a>
+                    );
+                })
+            }
         </div>
     </nav>
 </header>

@@ -443,6 +443,13 @@ main:focus-visible {
     outline: none;
 }
 
+.site-nav-links a[aria-current] {
+    text-decoration: underline;
+    text-decoration-color: var(--text);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+}
+
 @media (max-width: 700px) {
     .journal-item {
         grid-template-columns: 1fr;
