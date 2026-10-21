@@ -31,10 +31,10 @@ const {
     </head>
 
     <body>
-    <Header />
-    <main>
-        <slot />
-    </main>
-</body>
-
+        <a class="skip-link" href="#main">Skip to content</a>
+        <Header />
+        <main id="main" tabindex="-1">
+            <slot />
+        </main>
+    </body>
 </html>

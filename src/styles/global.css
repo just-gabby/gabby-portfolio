@@ -415,6 +415,34 @@ main {
     background: none;
 }
 
+:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 3px;
+}
+
+.skip-link {
+    position: absolute;
+    top: -4rem;
+    left: var(--space-sm);
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--text);
+    color: var(--background);
+    font-weight: 600;
+}
+
+.skip-link:focus {
+    top: var(--space-sm);
+}
+
+.skip-link:hover {
+    color: var(--background);
+}
+
+main:focus-visible {
+    outline: none;
+}
+
 @media (max-width: 700px) {
     .journal-item {
         grid-template-columns: 1fr;
