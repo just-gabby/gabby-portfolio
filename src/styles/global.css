@@ -324,6 +324,49 @@ main {
     text-underline-offset: 0.2em;
 }
 
+.journal-list {
+    margin: 0;
+    padding: 0 0 var(--space-xl);
+    list-style: none;
+}
+
+.journal-item {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: var(--space-xs) var(--space-md);
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--border);
+}
+
+.journal-date {
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.journal-item h2 {
+    margin: 0;
+    font-family: var(--font-newsreader);
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 1.1;
+}
+
+.journal-item p {
+    max-width: 650px;
+    margin: var(--space-xs) 0 0;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+    .journal-item {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 700px) {
     .timeline-item {
         grid-template-columns: 1fr;
