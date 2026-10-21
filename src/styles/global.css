@@ -361,6 +361,60 @@ main {
     line-height: 1.5;
 }
 
+.post-body {
+    max-width: 700px;
+    padding-bottom: var(--space-lg);
+    font-size: 1.125rem;
+    line-height: 1.7;
+}
+
+.post-body h2,
+.post-body h3 {
+    margin: var(--space-lg) 0 var(--space-sm);
+    font-family: var(--font-newsreader);
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.post-body h2 {
+    font-size: 2rem;
+}
+
+.post-body h3 {
+    font-size: 1.5rem;
+}
+
+.post-body p,
+.post-body ul,
+.post-body ol {
+    margin: 0 0 var(--space-sm);
+}
+
+.post-body a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+
+.post-body code {
+    padding: 0.1em 0.3em;
+    background: var(--surface);
+    font-size: 0.9em;
+}
+
+.post-body pre {
+    padding: var(--space-sm);
+    overflow-x: auto;
+    background: var(--surface);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.post-body pre code {
+    padding: 0;
+    background: none;
+}
+
 @media (max-width: 700px) {
     .journal-item {
         grid-template-columns: 1fr;
