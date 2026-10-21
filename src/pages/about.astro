@@ -87,7 +87,10 @@ import Layout from "../layouts/layout.astro";
         </section>
 
         <section class="about-section">
-            <h2>Experience</h2>
+            <div class="about-section-side">
+                 <h2>Experience</h2>
+                 <p class="year-dial" aria-hidden="true" hidden><span data-year-dial></span></p>
+            </div>
             <div class="about-section-body">
                 <p>
                     Print is where I started and what I've done the most of:
@@ -199,14 +202,66 @@ import Layout from "../layouts/layout.astro";
             </div>
         </section>
     </div>
-        <script>
+           <script>
         const timeline = document.querySelector<HTMLElement>("[data-timeline]");
+        const dial = document.querySelector<HTMLElement>("[data-year-dial]");
 
         if (timeline) {
             const items = Array.from(
                 timeline.querySelectorAll<HTMLElement>(".timeline-item"),
             );
+            const reduceMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)",
+            ).matches;
+
+            // Pulls the first four-digit year out of text like "2022–2025".
+            const yearOf = (item?: HTMLElement) =>
+                item
+                    ?.querySelector(".timeline-years")
+                    ?.textContent?.match(/\d{4}/)?.[0] ?? "";
+
+            let shown = yearOf(items[0]);
+            let wanted = shown;
+            let busy = false;
             let waiting = false;
+
+            if (dial) {
+                dial.textContent = shown;
+                dial.parentElement?.removeAttribute("hidden");
+            }
+
+            // Rolls the old year out and the new one in.
+            const sync = async () => {
+                if (!dial || busy || shown === wanted) return;
+                busy = true;
+                const next = wanted;
+
+                if (!reduceMotion) {
+                    const out = dial.animate(
+                        [
+                            { transform: "none", opacity: 1 },
+                            { transform: "translateY(-40%)", opacity: 0 },
+                        ],
+                        { duration: 150, easing: "ease-in", fill: "forwards" },
+                    );
+                    await out.finished;
+                    dial.textContent = next;
+                    out.cancel();
+                    dial.animate(
+                        [
+                            { transform: "translateY(40%)", opacity: 0 },
+                            { transform: "none", opacity: 1 },
+                        ],
+                        { duration: 200, easing: "ease-out" },
+                    );
+                } else {
+                    dial.textContent = next;
+                }
+
+                shown = next;
+                busy = false;
+                sync();
+            };
 
             const update = () => {
                 // The "reading line": 60% of the way down the screen.
@@ -226,6 +281,12 @@ import Layout from "../layouts/layout.astro";
                 }
                 for (const item of items) {
                     item.classList.toggle("is-current", item === current);
+                }
+
+                const year = yearOf(current ?? items[0]);
+                if (year) {
+                    wanted = year;
+                    sync();
                 }
             };
 

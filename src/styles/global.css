@@ -493,6 +493,35 @@ main:focus-visible {
     box-shadow: 0 0 0 4px rgb(255 90 54 / 0.25);
 }
 
+.about-section-side {
+    align-self: start;
+    position: sticky;
+    top: var(--space-md);
+}
+
+.year-dial {
+    margin: var(--space-sm) 0 0;
+    font-family: var(--font-inter);
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+}
+
+.year-dial span {
+    display: inline-block;
+}
+
+@media (max-width: 700px) {
+    .about-section-side {
+        position: static;
+    }
+
+    .year-dial {
+        display: none;
+    }
+}
+
 @media (max-width: 700px) {
     .journal-item {
         grid-template-columns: 1fr;
