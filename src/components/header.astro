@@ -53,10 +53,11 @@ const links = [
     const finalName = "Gabby";
 
     // Timings in milliseconds.
-    const typeSpeed = 60;
-    const eraseSpeed = 30;
-    const holdTime = 600;
-    const gapTime = 150;
+    const typeSpeed = 90; // the fastest a letter can arrive
+    const typeJitter = 110; // random extra, so keystrokes are uneven
+    const eraseSpeed = 45;
+    const holdTime = 3000;
+    const gapTime = 300;
 
     const reduceMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
@@ -103,7 +104,7 @@ const links = [
                 if (stopped) return;
                 await waitWhilePaused();
                 show(current + letter);
-                await wait(typeSpeed);
+                await wait(typeSpeed + Math.random() * typeJitter);
             }
         };
 
