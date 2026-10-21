@@ -5,12 +5,14 @@ import { categoryLabels, getProjectUrl } from "../utils/projects";
 
 interface Props {
     project: CollectionEntry<"projects">;
+    headingLevel?: "h2" | "h3";
 }
 
-const { project } = Astro.props;
+const { project, headingLevel = "h2" } = Astro.props;
 const { title, summary, year, category, cover, coverAlt } = project.data;
 
 const href = getProjectUrl(project);
+const Heading = headingLevel;
 ---
 
 <article class="project-card">
@@ -32,7 +34,7 @@ const href = getProjectUrl(project);
             <p class="project-card-meta">
                 {categoryLabels[category]} · {year}
             </p>
-            <h2>{title}</h2>
+            <Heading class="project-card-title">{title}</Heading>
             <p class="project-card-summary">{summary}</p>
         </div>
     </a>
@@ -65,7 +67,7 @@ const href = getProjectUrl(project);
         text-transform: uppercase;
     }
 
-    h2 {
+    .project-card-title {
         margin: 0;
         font-family: var(--font-newsreader);
         font-weight: 400;
@@ -79,7 +81,7 @@ const href = getProjectUrl(project);
         line-height: 1.5;
     }
 
-    .project-card-link:hover h2 {
+    .project-card-link:hover .project-card-title {
         color: var(--accent-text);
     }
 </style>
