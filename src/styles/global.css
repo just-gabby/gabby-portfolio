@@ -576,6 +576,28 @@ body.show-grid .grid-overlay {
     animation: caret-blink 1s steps(1) infinite;
 }
 
+.not-found-link a {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+
+.page-intro h1 .not-found-code {
+    display: block;
+    font-size: clamp(6rem, 22vw, 15rem);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    text-shadow: 0.03em 0.03em 0 var(--accent);
+}
+
+.page-intro h1 .not-found-line {
+    display: block;
+    margin-top: var(--space-sm);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+
 @keyframes caret-blink {
     50% {
         opacity: 0;
