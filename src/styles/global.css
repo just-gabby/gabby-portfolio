@@ -641,11 +641,19 @@ body.show-grid .grid-overlay {
 }
 
 .site-footer-links {
-    display: flex;
-    gap: var(--space-md);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
     margin: 0;
     padding: 0;
     list-style: none;
+}
+
+@media (max-width: 1020px) {
+    .site-footer-links {
+        display: flex;
+        gap: var(--space-md);
+    }
 }
 
 .site-footer a {
