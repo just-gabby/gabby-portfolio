@@ -788,6 +788,15 @@ body.show-grid .grid-overlay {
     height: 0.75rem;
     background: var(--accent);
 }
+.site-logo {
+    font-family: var(--font-typewriter);
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.logo-name {
+    min-width: calc(9ch + 6px);
+}
 
 @media (hover: none) {
     .site-footer-hint {

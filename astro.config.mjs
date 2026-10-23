@@ -21,5 +21,13 @@ export default defineConfig({
             styles: ['normal'],
             fallbacks: ['sans-serif'],
         },
+        {
+            name: 'Cutive Mono',
+            cssVariable: '--font-typewriter',
+            provider: fontProviders.google(),
+            weights: [400],
+            styles: ['normal'],
+            fallbacks: ['monospace'],
+        },
     ],
 });
