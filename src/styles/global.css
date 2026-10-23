@@ -878,29 +878,6 @@ body {
 
 @media (max-width: 700px) {
     :root {
-    --text-display: clamp(3rem, 15vw, 5rem);
-}
-    .site-nav {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .site-nav-links {
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-    main {
-        padding: 0 1.25rem;
-    }
-
-    .hero {
-        min-height: auto;
-        padding: 5rem 0;
-    }
-
-@media (max-width: 700px) {
-    :root {
         --text-display: clamp(3rem, 15vw, 5rem);
     }
 
@@ -939,4 +916,87 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+@media print {
+    @page {
+        size: A4;
+        margin: 16mm;
     }
+
+    html {
+        background: #fff;
+        font-size: 10.5pt;
+    }
+
+    body {
+        color: #000;
+    }
+
+    .skip-link,
+    .site-nav-links,
+    .site-logo,
+    .site-footer,
+    .grid-overlay,
+    .year-dial {
+        display: none;
+    }
+
+    .site-nav {
+        padding: 0 0 4mm;
+    }
+
+    .site-nav::before {
+        content: "Gabriele Naseviciute, graphic designer and creative technologist";
+        font-weight: 600;
+    }
+
+    main {
+        padding: 0;
+    }
+
+    .page-intro {
+        padding: 8mm 0;
+    }
+
+    .page-intro h1 {
+        font-size: 26pt;
+    }
+
+    .about-sections {
+        padding-bottom: 0;
+    }
+
+    .about-section {
+        padding: 6mm 0;
+    }
+
+    .about-section-side {
+        position: static;
+    }
+
+    .timeline.is-live {
+        padding-left: 0;
+    }
+
+    .timeline.is-live::before,
+    .timeline.is-live::after,
+    .timeline.is-live .timeline-item::before {
+        display: none;
+    }
+
+    .timeline-item {
+        break-inside: avoid;
+    }
+
+    h2,
+    h3 {
+        break-after: avoid;
+    }
+
+    .about-section-body a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        color: #444;
+        font-size: 0.85em;
+        overflow-wrap: anywhere;
+    }
+}
