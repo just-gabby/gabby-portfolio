@@ -651,14 +651,18 @@ body.show-grid .grid-overlay {
     margin-top: var(--space-sm);
 }
 
+.about-section-body.about-section-body--wide {
+    max-width: none;
+}
+
 .specimen-glyphs {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     align-items: baseline;
-    gap: var(--space-md);
+    gap: var(--space-sm);
 }
 
 .specimen-glyphs span {
-    flex: 1;
     font-size: 6rem;
     line-height: 1;
 }
@@ -675,8 +679,8 @@ body.show-grid .grid-overlay {
 
 .specimens {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-    gap: var(--space-md);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
     margin-top: var(--space-sm);
 }
 
@@ -885,6 +889,12 @@ body {
 
     .hero-actions a:first-child:hover {
         transform: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .specimens {
+        grid-template-columns: 1fr;
     }
 }
     }
