@@ -238,10 +238,18 @@ main {
 
 .about-section {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: var(--space-sm) var(--space-md);
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-sm);
     padding: var(--space-lg) 0;
     border-top: 1px solid var(--border);
+}
+
+.about-section > :first-child {
+    grid-column: 1 / span 4;
+}
+
+.about-section > .about-section-body {
+    grid-column: 5 / -1;
 }
 
 .about-section h2 {
@@ -814,6 +822,11 @@ body {
 @media (max-width: 700px) {
     .about-section {
         grid-template-columns: 1fr;
+    }
+
+    .about-section > :first-child,
+    .about-section > .about-section-body {
+        grid-column: 1 / -1;
     }
 }
 
