@@ -1,5 +1,6 @@
 ---
 const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL;
 ---
 
 <footer class="site-footer">
@@ -12,6 +13,9 @@ const year = new Date().getFullYear();
                 <li>
                     <a href="https://github.com/just-gabby">GitHub</a>
                 </li>
+                <li>
+                    <a href={`${base}colophon/`}>Colophon</a>
+                </li>
             </ul>
 
             <p>© {year} Gabriele Naseviciute</p>
@@ -19,7 +23,7 @@ const year = new Date().getFullYear();
 
         <p>
             Spacing checked.
-            <span class="site-footer-hint"> Press Shift+G to see for yourself.</span>
+            <span class="site-footer-hint">Press Shift+G to see for yourself.</span>
         </p>
     </div>
 </footer>

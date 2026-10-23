@@ -1,0 +1,134 @@
+---
+import Layout from "../layouts/layout.astro";
+
+// These hex codes are copied from the top of global.css.
+// If you change a colour there, change it here too.
+const colours = [
+    { name: "Background", variable: "--background", hex: "#f5f3ef", note: "Warm off-white, like uncoated stock." },
+    { name: "Surface", variable: "--surface", hex: "#ebe7df", note: "A shade darker, for code blocks and placeholders." },
+    { name: "Text", variable: "--text", hex: "#171717", note: "Near-black. About 16:1 on the background." },
+    { name: "Muted", variable: "--muted", hex: "#6b6862", note: "Secondary text. About 5:1." },
+    { name: "Accent", variable: "--accent", hex: "#ff5a36", note: "Pantone: close enough. Only about 2.8:1 on the background, so it's decoration and never small text." },
+    { name: "Accent text", variable: "--accent-text", hex: "#c2300f", note: "A deeper coral for text and hover states. About 5:1." },
+    { name: "Border", variable: "--border", hex: "#d5d0c7", note: "Hairlines." },
+];
+
+const spacing = [
+    { variable: "--space-xs", value: "0.5rem" },
+    { variable: "--space-sm", value: "1rem" },
+    { variable: "--space-md", value: "2rem" },
+    { variable: "--space-lg", value: "4rem" },
+    { variable: "--space-xl", value: "8rem" },
+];
+---
+
+<Layout
+    title="Colophon | Gabby"
+    description="The type, colours and spacing behind this site, and how it is built."
+>
+    <section class="page-intro">
+        <p class="eyebrow">Colophon</p>
+
+        <h1>How this site is made.</h1>
+
+        <p class="intro-tight">The type, the colours and the spacing, for anyone who likes to check.</p>
+    </section>
+
+    <div class="about-sections">
+        <section class="about-section">
+            <h2>Typography</h2>
+            <div class="about-section-body">
+                <div class="specimen-glyphs" aria-hidden="true">
+                    <span class="specimen-serif">Aa</span>
+                    <span class="specimen-sans">Aa</span>
+                </div>
+
+                <div class="specimens">
+                    <div>
+                        <h3>Newsreader</h3>
+                        <p>
+                            Headlines and titles, in regular and medium, with
+                            italics. Free from Google Fonts and served from
+                            this site.
+                        </p>
+                    </div>
+                    <div>
+                        <h3>Inter</h3>
+                        <p>
+                            Everything else, in regular, medium and semibold.
+                            Also free, also served from this site.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <h2>Colour</h2>
+            <div class="about-section-body">
+                <ul class="swatches" role="list">
+                    {
+                        colours.map((colour) => (
+                            <li class="swatch">
+                                <span
+                                    class="swatch-chip"
+                                    style={`background: var(${colour.variable})`}
+                                    aria-hidden="true"
+                                />
+                                <div class="swatch-text">
+                                    <p class="swatch-name">
+                                        {colour.name}
+                                        <span class="swatch-hex">{colour.hex}</span>
+                                    </p>
+                                    <p class="swatch-meta">{colour.note}</p>
+                                </div>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <h2>Spacing</h2>
+            <div class="about-section-body">
+                <p>
+                    Every gap on the site comes from this scale. I check it
+                    before any draft goes to a client, and I checked it here.
+                </p>
+
+                <ul class="spacing-scale" role="list">
+                    {
+                        spacing.map((step) => (
+                            <li>
+                                <span
+                                    class="spacing-bar"
+                                    style={`width: var(${step.variable})`}
+                                    aria-hidden="true"
+                                />
+                                <span>{step.variable}, {step.value}</span>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <h2>Built with</h2>
+            <div class="about-section-body">
+                <ul class="about-list">
+                    <li>Astro, with plain HTML and CSS.</li>
+                    <li>
+                        A little JavaScript: the logo, the timeline and the
+                        grid overlay (Shift+G).
+                    </li>
+                    <li>Hosted on GitHub Pages and deployed with GitHub Actions.</li>
+                    <li>
+                        <a href="https://github.com/just-gabby/gabby-portfolio">The source is on GitHub</a>.
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</Layout>
