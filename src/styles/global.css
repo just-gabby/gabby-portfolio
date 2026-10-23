@@ -612,16 +612,23 @@ body.show-grid .grid-overlay {
 }
 
 .site-footer-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--space-md);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: end;
+    gap: var(--space-sm);
     max-width: var(--content-width);
     margin: 0 auto;
     padding: var(--space-md) 2rem;
     color: var(--muted);
     font-size: 0.9rem;
+}
+
+.site-footer-main {
+    grid-column: 1 / span 4;
+}
+
+.site-footer-note {
+    grid-column: 5 / -1;
 }
 
 .site-footer-main {
@@ -774,10 +781,15 @@ body.show-grid .grid-overlay {
 
 @media (max-width: 700px) {
     .site-footer-inner {
+        grid-template-columns: 1fr;
         padding: var(--space-md) 1.25rem;
     }
-}
 
+    .site-footer-main,
+    .site-footer-note {
+        grid-column: 1 / -1;
+    }
+}
 h1,
 h2,
 h3 {
