@@ -5,25 +5,23 @@ const base = import.meta.env.BASE_URL;
 
 <footer class="site-footer">
     <div class="site-footer-inner">
-        <div class="site-footer-main">
-            <ul class="site-footer-links" role="list">
-                <li>
-                    <a href="https://www.linkedin.com/in/gnaseviciute/">LinkedIn</a>
-                </li>
-                <li>
-                    <a href="https://github.com/just-gabby">GitHub</a>
-                </li>
-                <li>
-                    <a href={`${base}colophon/`}>Colophon</a>
-                </li>
-            </ul>
-
-            <p>© {year} Gabriele Naseviciute</p>
-        </div>
+        <ul class="site-footer-links" role="list">
+            <li>
+                <a href="https://www.linkedin.com/in/gnaseviciute/">LinkedIn</a>
+            </li>
+            <li>
+                <a href="https://github.com/just-gabby">GitHub</a>
+            </li>
+            <li>
+                <a href={`${base}colophon/`}>Colophon</a>
+            </li>
+        </ul>
 
         <p class="site-footer-note">
             Spacing checked.
-            <span class="site-footer-hint">Press Shift+G to see for yourself.</span>
+            <span class="site-footer-hint">Shift+G for grid, Shift+R for redlines.</span>
         </p>
+
+        <p class="site-footer-copy">© {year} Gabriele Naseviciute</p>
     </div>
 </footer>

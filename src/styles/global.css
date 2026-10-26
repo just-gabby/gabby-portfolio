@@ -649,7 +649,7 @@ body.show-grid .grid-overlay {
 .site-footer-inner {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    align-items: end;
+    align-items: baseline;
     gap: var(--space-sm);
     max-width: var(--content-width);
     margin: 0 auto;
@@ -658,24 +658,12 @@ body.show-grid .grid-overlay {
     font-size: 0.9rem;
 }
 
-.site-footer-main {
-    grid-column: 1 / span 4;
-}
-
-.site-footer-note {
-    grid-column: 5 / -1;
-}
-
-.site-footer-main {
-    display: grid;
-    gap: var(--space-xs);
-}
-
 .site-footer p {
     margin: 0;
 }
 
 .site-footer-links {
+    grid-column: 1 / span 4;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-sm);
@@ -684,10 +672,31 @@ body.show-grid .grid-overlay {
     list-style: none;
 }
 
-@media (max-width: 1020px) {
+.site-footer-note {
+    grid-column: 5 / span 5;
+}
+
+.site-footer-copy {
+    grid-column: 10 / -1;
+    text-align: right;
+}
+
+@media (max-width: 1100px) {
     .site-footer-links {
+        grid-column: 1 / span 6;
+        grid-row: 1;
         display: flex;
         gap: var(--space-md);
+    }
+
+    .site-footer-note {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+
+    .site-footer-copy {
+        grid-column: 7 / -1;
+        grid-row: 1;
     }
 }
 
@@ -930,11 +939,18 @@ body.show-grid .grid-overlay {
         padding: var(--space-md) var(--space-sm);
     }
 
-    .site-footer-main,
-    .site-footer-note {
+    .site-footer-links,
+    .site-footer-note,
+    .site-footer-copy {
         grid-column: 1 / -1;
+        grid-row: auto;
+    }
+
+    .site-footer-copy {
+        text-align: left;
     }
 }
+
 h1,
 h2,
 h3 {
