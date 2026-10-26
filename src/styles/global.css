@@ -798,6 +798,52 @@ body.show-grid .grid-overlay {
     min-width: calc(9ch + 6px);
 }
 
+.redline-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 95;
+    pointer-events: none;
+    font: 11px/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.redline-band {
+    position: absolute;
+    background: rgb(29 78 216 / 0.14);
+    border-block: 1px solid rgb(29 78 216 / 0.5);
+}
+
+.redline-box {
+    position: absolute;
+    outline: 1px solid rgb(29 78 216 / 0.7);
+}
+
+.redline-label,
+.redline-tag {
+    position: absolute;
+    padding: 3px 5px;
+    background: #1d4ed8;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.redline-label {
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.redline-tag {
+    transform: translateY(-100%);
+}
+
+@media print {
+    .redline-layer {
+        display: none;
+    }
+}
+
 @media (hover: none) {
     .site-footer-hint {
         display: none;

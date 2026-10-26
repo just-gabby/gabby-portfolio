@@ -70,13 +70,15 @@ const ogImage = new URL(`${base}og-image.png`, Astro.site);
             </div>
         </div>
 
-        <script>
+          <script>
+            import "../scripts/redline.ts";
+
             console.log(
                 "%cHello, curious one.",
                 "font: 24px Georgia, serif; color: #ff5a36;",
             );
             console.log("I'm Gabby. I design things, then I figure out how to make them work.");
-            console.log("Press Shift+G on the page to see the grid.");
+            console.log("Press Shift+G on the page to see the grid, and Shift+R for the redlines.");
 
             document.addEventListener("keydown", (event) => {
                 if (event.ctrlKey || event.metaKey || event.altKey) return;
