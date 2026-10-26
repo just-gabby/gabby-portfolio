@@ -17,6 +17,33 @@
     --space-xl: 8rem;
 }
 
+:root[data-theme="light"] {
+    color-scheme: light;
+}
+
+/* Keep the two dark palettes below identical. */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --background: #141311;
+    --surface: #1e1c19;
+    --text: #f1eee8;
+    --muted: #a8a39a;
+    --accent-text: #ff7d5e;
+    --border: #36332e;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --background: #141311;
+        --surface: #1e1c19;
+        --text: #f1eee8;
+        --muted: #a8a39a;
+        --accent-text: #ff7d5e;
+        --border: #36332e;
+    }
+}
+
 * {
     box-sizing: border-box;
 }
@@ -286,7 +313,7 @@ main {
 
 ::selection {
     background: var(--accent);
-    color: var(--text);
+    color: #171717;
 }
 
 .timeline {
@@ -974,6 +1001,15 @@ body {
 }
 
 @media print {
+    :root:root {
+    color-scheme: light;
+    --background: #f5f3ef;
+    --surface: #ebe7df;
+    --text: #171717;
+    --muted: #6b6862;
+    --accent-text: #c2300f;
+    --border: #d5d0c7;
+    }
     @page {
         size: A4;
         margin: 16mm;
