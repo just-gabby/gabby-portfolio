@@ -805,26 +805,35 @@ body.show-grid .grid-overlay {
     width: 100%;
     z-index: 95;
     pointer-events: none;
-    font: 11px/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-family: var(--font-inter);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
 }
 
 .redline-band {
     position: absolute;
-    background: rgb(29 78 216 / 0.14);
-    border-block: 1px solid rgb(29 78 216 / 0.5);
+    background: repeating-linear-gradient(
+        135deg,
+        rgb(23 23 23 / 0.14) 0 1px,
+        transparent 1px 6px
+    );
+    border-block: 1px solid rgb(23 23 23 / 0.4);
 }
 
 .redline-box {
     position: absolute;
-    outline: 1px solid rgb(29 78 216 / 0.7);
+    outline: 1px dashed rgb(23 23 23 / 0.5);
 }
 
 .redline-label,
 .redline-tag {
     position: absolute;
-    padding: 3px 5px;
-    background: #1d4ed8;
-    color: #fff;
+    padding: 4px 6px;
+    background: var(--text);
+    color: var(--background);
     white-space: nowrap;
 }
 
