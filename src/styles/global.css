@@ -875,17 +875,41 @@ body.show-grid .grid-overlay {
 }
 
 .theme-toggle {
+    position: relative;
+    align-self: center;
+    width: 2.5rem;
+    height: 1.5rem;
     padding: 0;
-    border: 0;
-    background: none;
-    color: var(--muted);
-    font: inherit;
-    font-size: 0.95rem;
+    border: 1px solid var(--muted);
+    border-radius: 999px;
+    background: transparent;
     cursor: pointer;
 }
 
 .theme-toggle:hover {
-    color: var(--accent-text);
+    border-color: var(--text);
+}
+
+.theme-toggle-thumb {
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid var(--text);
+    border-radius: 50%;
+    background: linear-gradient(90deg, var(--text) 50%, transparent 50%);
+    transform: translate(0, -50%) rotate(0deg);
+}
+
+.theme-toggle[aria-checked="true"] .theme-toggle-thumb {
+    transform: translate(1rem, -50%) rotate(180deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .theme-toggle-thumb {
+        transition: transform 0.25s ease;
+    }
 }
 
 @media print {
