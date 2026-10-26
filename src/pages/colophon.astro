@@ -1,16 +1,17 @@
 ---
 import Layout from "../layouts/layout.astro";
 
-// These hex codes are copied from the top of global.css.
-// If you change a colour there, change it here too.
+// Hex codes are copied from the top of global.css. The dark palette is
+// written there twice, so keep both copies identical. If you change a
+// colour there, change it here too.
 const colours = [
-    { name: "Background", variable: "--background", hex: "#f5f3ef", note: "Warm off-white, like uncoated stock." },
-    { name: "Surface", variable: "--surface", hex: "#ebe7df", note: "A shade darker, for code blocks and placeholders." },
-    { name: "Text", variable: "--text", hex: "#171717", note: "Near-black. About 16:1 on the background." },
-    { name: "Muted", variable: "--muted", hex: "#6b6862", note: "Secondary text. About 5:1." },
-    { name: "Accent", variable: "--accent", hex: "#ff5a36", note: "Pantone: close enough. Only about 2.8:1 on the background, so it's decoration and never small text." },
-    { name: "Accent text", variable: "--accent-text", hex: "#c2300f", note: "A deeper coral for text and hover states. About 5:1." },
-    { name: "Border", variable: "--border", hex: "#d5d0c7", note: "Hairlines." },
+    { name: "Background", light: "#f5f3ef", dark: "#141311", note: "Warm off-white, like uncoated stock. In dark, a warm near-black." },
+    { name: "Surface", light: "#ebe7df", dark: "#1e1c19", note: "A step away from the background, for code blocks and placeholders." },
+    { name: "Text", light: "#171717", dark: "#f1eee8", note: "Near-black in light, warm off-white in dark. About 16:1 on the background in both." },
+    { name: "Muted", light: "#6b6862", dark: "#a8a39a", note: "Secondary text. About 5:1 in light and 7.4:1 in dark." },
+    { name: "Accent", light: "#ff5a36", dark: "#ff5a36", note: "Pantone: close enough. Only about 2.8:1 on the light background, so there it is decoration and never small text. On dark it reaches 6:1." },
+    { name: "Accent text", light: "#c2300f", dark: "#ff7d5e", note: "Coral for text and hover states: deeper in light, about 5:1, and lighter in dark, about 7.4:1." },
+    { name: "Border", light: "#d5d0c7", dark: "#36332e", note: "Hairlines." },
 ];
 
 const spacing = [
@@ -66,19 +67,27 @@ const spacing = [
         <section class="about-section">
             <h2>Colour</h2>
             <div class="about-section-body">
+                <p style="margin-bottom: var(--space-sm)">
+                    Each swatch is split: light on the left, dark on the right.
+                </p>
+
                 <ul class="swatches" role="list">
                     {
                         colours.map((colour) => (
                             <li class="swatch">
                                 <span
                                     class="swatch-chip"
-                                    style={`background: var(${colour.variable})`}
+                                    style={`background: linear-gradient(90deg, ${colour.light} 50%, ${colour.dark} 50%)`}
                                     aria-hidden="true"
                                 />
                                 <div class="swatch-text">
                                     <p class="swatch-name">
                                         {colour.name}
-                                        <span class="swatch-hex">{colour.hex}</span>
+                                        <span class="swatch-hex">
+                                            {colour.light === colour.dark
+                                                ? `${colour.light}, both themes`
+                                                : `${colour.light} light, ${colour.dark} dark`}
+                                        </span>
                                     </p>
                                     <p class="swatch-meta">{colour.note}</p>
                                 </div>
@@ -93,7 +102,8 @@ const spacing = [
             <h2>Spacing</h2>
             <div class="about-section-body">
                 <p>
-                    Every gap between blocks on this site comes from this scale. 
+                    Every gap between blocks on this site comes from this
+                    scale. 
                 </p>
 
                 <ul class="spacing-scale" role="list">
@@ -119,8 +129,13 @@ const spacing = [
                 <ul class="about-list">
                     <li>Astro, with plain HTML and CSS.</li>
                     <li>
-                        A little JavaScript: the logo, the timeline and the
-                        grid overlay (Shift+G) and the redlines (Shift+R).
+                        A little JavaScript: the logo, the timeline, the
+                        theme switch, the grid overlay (Shift+G) and the
+                        redlines (Shift+R).
+                    </li>
+                    <li>
+                        Light and dark themes. The site follows your system
+                        until you flip the switch in the header.
                     </li>
                     <li>Hosted on GitHub Pages and deployed with GitHub Actions.</li>
                     <li>

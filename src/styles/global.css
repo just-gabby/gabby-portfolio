@@ -768,7 +768,7 @@ body.show-grid .grid-overlay {
 .swatch-chip {
     display: block;
     height: 3.5rem;
-    box-shadow: inset 0 0 0 1px rgb(23 23 23 / 0.15);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 15%, transparent);
 }
 
 .swatch-text {
@@ -844,15 +844,15 @@ body.show-grid .grid-overlay {
     position: absolute;
     background: repeating-linear-gradient(
         135deg,
-        rgb(23 23 23 / 0.14) 0 1px,
+        color-mix(in srgb, var(--text) 14%, transparent) 0 1px,
         transparent 1px 6px
     );
-    border-block: 1px solid rgb(23 23 23 / 0.4);
+    border-block: 1px solid color-mix(in srgb, var(--text) 40%, transparent);
 }
 
 .redline-box {
     position: absolute;
-    outline: 1px dashed rgb(23 23 23 / 0.5);
+    outline: 1px dashed color-mix(in srgb, var(--text) 50%, transparent);
 }
 
 .redline-label,

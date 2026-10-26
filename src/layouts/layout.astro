@@ -24,6 +24,8 @@ const ogImage = new URL(`${base}og-image.png`, Astro.site);
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#f5f3ef" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#141311" media="(prefers-color-scheme: dark)" />
          <script is:inline>
              try {
                 var stored = localStorage.getItem("theme");
