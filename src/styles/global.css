@@ -874,6 +874,20 @@ body.show-grid .grid-overlay {
     transform: translateY(-100%);
 }
 
+.theme-toggle {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    color: var(--accent-text);
+}
+
 @media print {
     .redline-layer {
         display: none;

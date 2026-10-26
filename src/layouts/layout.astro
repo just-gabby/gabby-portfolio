@@ -24,6 +24,14 @@ const ogImage = new URL(`${base}og-image.png`, Astro.site);
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+         <script is:inline>
+             try {
+                var stored = localStorage.getItem("theme");
+                if (stored === "light" || stored === "dark") {
+                    document.documentElement.dataset.theme = stored;
+                 }
+              } catch (e) {}
+          </script>
         <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
         <link rel="icon" type="image/png" sizes="32x32" href={`${base}favicon-32.png`} />
         <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
@@ -72,6 +80,7 @@ const ogImage = new URL(`${base}og-image.png`, Astro.site);
 
           <script>
             import "../scripts/redline.ts";
+            import "../scripts/theme.ts";
 
             console.log(
                 "%cHello, curious one.",
