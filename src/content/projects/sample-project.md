@@ -5,6 +5,7 @@ year: 2026
 category: "design"
 tags: ["branding", "print"]
 featured: true
+tile: "big"
 cover: "../../assets/projects/sample-project/cover.jpg"
 coverAlt: "Describe what the image shows here"
 draft: false

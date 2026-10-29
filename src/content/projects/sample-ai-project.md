@@ -5,6 +5,7 @@ year: 2025
 category: "ai-code"
 tags: ["python", "rag"]
 featured: true
+tile: "square"
 draft: false
 cover: "../../assets/projects/sample-project/cover.jpg"
 coverAlt: "Placeholder image"

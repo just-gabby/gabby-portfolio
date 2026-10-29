@@ -5,6 +5,7 @@ year: 2024
 category: "design"
 tags: ["identity", "digital"]
 featured: false
+tile: "wide"
 draft: false
 cover: "../../assets/projects/sample-project/cover.jpg"
 coverAlt: "Placeholder image"

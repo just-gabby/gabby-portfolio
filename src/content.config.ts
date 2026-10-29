@@ -12,6 +12,7 @@ const projects = defineCollection({
             category: z.enum(['design', 'creative-tech', 'ai-code']),
             tags: z.array(z.string()).default([]),
             featured: z.boolean().default(false),
+            tile: z.enum(["square", "wide", "tall", "big"]).default("square"),
             draft: z.boolean().default(false),
 
             cover: image().optional(),
