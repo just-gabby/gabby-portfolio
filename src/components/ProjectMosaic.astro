@@ -1,0 +1,324 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { getProjectUrl } from "../utils/projects";
+
+interface Props {
+    projects: CollectionEntry<"projects">[];
+}
+
+const { projects } = Astro.props;
+
+// How many grid cells each shape covers (columns x rows).
+const cells = { square: 9, wide: 18, tall: 12, big: 36 };
+const area = projects.reduce(
+    (sum, project) => sum + cells[project.data.tile],
+    0,
+);
+
+// Build-time guard rails. They only warn, and a clean result is no guarantee.
+if (projects.length !== 13) {
+    console.warn(
+        `[mosaic] ${projects.length} tiles. 13 fill the selected ring exactly.`,
+    );
+}
+if (area % 12 !== 0) {
+    console.warn(
+        `[mosaic] Tile area is ${area} cells. A full mosaic needs a multiple of 12, so the last row will have gaps.`,
+    );
+}
+
+const sizesFor = (tile: string) =>
+    tile === "big" || tile === "wide"
+        ? "(max-width: 700px) 100vw, 50vw"
+        : "(max-width: 700px) 50vw, 25vw";
+---
+
+<div class="mosaic-wrap">
+    <p class="visually-hidden" role="status" data-status></p>
+
+    <ul class="mosaic" role="list">
+        {
+            projects.map((project, index) => {
+                const { title, tile, cover } = project.data;
+                const number = String(index + 1).padStart(2, "0");
+
+                return (
+                    <li
+                        class={`tile tile--${tile}`}
+                        style={`view-transition-name: tile-${index + 1}`}
+                    >
+                        <a class="tile-link" href={getProjectUrl(project)}>
+                            {cover && (
+                                <Image
+                                    class="tile-image"
+                                    src={cover}
+                                    alt=""
+                                    widths={[480, 960, 1440]}
+                                    sizes={sizesFor(tile)}
+                                />
+                            )}
+                            <span class="tile-label">
+                                <span aria-hidden="true">{number} · </span>
+                                <span class="tile-title">{title}</span>
+                            </span>
+                        </a>
+                    </li>
+                );
+            })
+        }
+    </ul>
+</div>
+
+<script>
+    // Try these while testing.
+    const HOVER_SELECTS = false; // true: a tile selects once the pointer rests on it
+    const HOVER_DELAY = 250; // ms the pointer must rest on a tile
+    const LOCK_TIME = 900; // ms to ignore hover after the layout changes
+
+    const mosaic = document.querySelector<HTMLElement>(".mosaic");
+    const status = document.querySelector<HTMLElement>("[data-status]");
+
+    if (mosaic) {
+        const tiles = Array.from(mosaic.querySelectorAll<HTMLElement>(".tile"));
+        const calm = () =>
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let selected: HTMLElement | null = null;
+        let lockedUntil = 0;
+
+        const nameOf = (tile: HTMLElement) =>
+            tile.querySelector(".tile-title")?.textContent?.trim() ?? "project";
+
+        const say = (message: string) => {
+            if (status) status.textContent = message;
+        };
+
+        const apply = (chosen: HTMLElement | null) => {
+            tiles.forEach((tile) => {
+                const on = tile === chosen;
+                tile.classList.toggle("is-selected", on);
+                const link = tile.querySelector(".tile-link");
+                if (on) link?.setAttribute("aria-current", "true");
+                else link?.removeAttribute("aria-current");
+            });
+            mosaic.classList.toggle("mosaic--open", chosen !== null);
+            // Bring the chosen tile into view after the layout changes.
+            chosen?.scrollIntoView({ block: "center" });
+        };
+
+        const select = (chosen: HTMLElement | null) => {
+            selected = chosen;
+            lockedUntil = performance.now() + LOCK_TIME;
+            say(
+                chosen
+                    ? `Selected ${nameOf(chosen)}. Activate it again to open.`
+                    : "Selection cleared.",
+            );
+
+            if (calm() || !document.startViewTransition) {
+                apply(chosen);
+                return;
+            }
+
+            document.startViewTransition(() => apply(chosen));
+        };
+
+        mosaic.addEventListener("click", (event) => {
+            const link = (event.target as HTMLElement).closest(".tile-link");
+            if (!link) return;
+
+            const tile = link.closest<HTMLElement>(".tile");
+            if (!tile) return;
+
+            // A second click on the selected tile follows its link.
+            if (tile.classList.contains("is-selected")) return;
+
+            event.preventDefault();
+            select(tile);
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && selected) select(null);
+        });
+
+        if (HOVER_SELECTS) {
+            let timer: number | undefined;
+
+            mosaic.addEventListener("pointermove", (event) => {
+                if (event.pointerType !== "mouse" || calm()) return;
+                // Ignore the fake moves the browser sends after a reshuffle.
+                if (!event.movementX && !event.movementY) return;
+
+                clearTimeout(timer);
+
+                const tile = (event.target as HTMLElement).closest<HTMLElement>(
+                    ".tile",
+                );
+                if (!tile || tile === selected) return;
+                if (performance.now() < lockedUntil) return;
+
+                timer = window.setTimeout(() => select(tile), HOVER_DELAY);
+            });
+
+            mosaic.addEventListener("pointerleave", () => clearTimeout(timer));
+        }
+    }
+</script>
+
+<style is:global>
+    ::view-transition-group(*) {
+        animation-duration: 0.5s;
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none;
+        mix-blend-mode: normal;
+    }
+</style>
+
+<style>
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
+    .mosaic-wrap {
+        container-type: inline-size;
+        padding-bottom: var(--space-xl);
+    }
+
+    .mosaic {
+        --cols: 12;
+        display: grid;
+        grid-template-columns: repeat(var(--cols), 1fr);
+        grid-auto-rows: calc(
+            (100cqw - (var(--cols) - 1) * var(--space-sm)) / var(--cols)
+        );
+        grid-auto-flow: dense;
+        gap: var(--space-sm);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .tile {
+        position: relative;
+        background: var(--surface);
+        box-shadow: inset 0 0 0 1px var(--border);
+    }
+
+    .tile--square {
+        grid-column: span 3;
+        grid-row: span 3;
+    }
+
+    .tile--wide {
+        grid-column: span 6;
+        grid-row: span 3;
+    }
+
+    .tile--tall {
+        grid-column: span 3;
+        grid-row: span 4;
+    }
+
+    .tile--big {
+        grid-column: span 6;
+        grid-row: span 6;
+    }
+
+    /* Selected state: every tile becomes a square, the chosen one goes big and central. */
+    .mosaic--open .tile {
+        grid-column: span 3;
+        grid-row: span 3;
+    }
+
+    .mosaic--open .tile.is-selected {
+        grid-column: 4 / span 6;
+        grid-row: 4 / span 6;
+    }
+
+    .mosaic--open .tile.is-selected::after {
+        --corner: var(--space-sm);
+        --corner-colour: var(--accent);
+        content: "";
+        position: absolute;
+        inset: var(--space-xs);
+        pointer-events: none;
+        background:
+            linear-gradient(135deg, var(--corner-colour) 50%, transparent 50%) top left / var(--corner) var(--corner) no-repeat,
+            linear-gradient(225deg, var(--corner-colour) 50%, transparent 50%) top right / var(--corner) var(--corner) no-repeat,
+            linear-gradient(45deg, var(--corner-colour) 50%, transparent 50%) bottom left / var(--corner) var(--corner) no-repeat,
+            linear-gradient(315deg, var(--corner-colour) 50%, transparent 50%) bottom right / var(--corner) var(--corner) no-repeat;
+    }
+
+    .tile-link {
+        position: relative;
+        display: block;
+        height: 100%;
+    }
+
+    .tile-image {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+        .tile-label {
+        position: absolute;
+        left: var(--space-sm);
+        right: var(--space-sm);
+        bottom: var(--space-sm);
+        width: fit-content;
+        margin-inline: auto;
+        padding: 0.25rem 0.5rem;
+        background: var(--text);
+        color: var(--background);
+        font-size: 0.75rem;
+        font-weight: 600;
+        line-height: 1.3;
+        letter-spacing: 0.08em;
+        text-align: center;
+        text-transform: uppercase;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .mosaic--open .tile.is-selected .tile-label {
+        left: var(--space-md);
+        right: var(--space-md);
+    }
+
+    .tile-link:hover .tile-label {
+        background: var(--accent);
+        color: #171717;
+    }
+
+    @media (max-width: 700px) {
+        .mosaic {
+            --cols: 6;
+        }
+
+        .mosaic--open .tile.is-selected {
+            grid-column: 1 / -1;
+            grid-row: 1 / span 6;
+        }
+    }
+</style>
