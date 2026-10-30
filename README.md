@@ -53,7 +53,7 @@ public/         favicon and social preview image
 
 ## Adding a project
 
-Add a Markdown file to `src/content/projects/`. The details at the top need a title, summary, year and a category (`design`, `creative-tech` or `ai-code`). Cover and gallery images are optional, and `draft: true` hides a project. If something is missing or mistyped, the build says so.
+Add a Markdown file to `src/content/projects/`. The details at the top need a title, summary, year and a category (`design`, `creative-tech` or `ai-code`). Cover and gallery images are optional, and `draft: true` hides a project. `featured: true` puts a project on the homepage, and `tile` (`square`, `wide`, `tall` or `big`) sets its shape in the homepage gallery. The gallery appears once six projects are featured, and thirteen fill it exactly. Until then, the homepage shows cards. If something is missing or mistyped, the build says so.
 
 ## Rights
 
